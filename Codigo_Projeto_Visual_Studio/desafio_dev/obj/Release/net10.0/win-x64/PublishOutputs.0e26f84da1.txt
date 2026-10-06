@@ -1,0 +1,7 @@
+C:\Users\andreza\Desktop\desafio_dev\Codigo_Projeto_Visual_Studio\desafio_dev\bin\Release\net10.0\win-x64\publish\appsettings.Development.json
+C:\Users\andreza\Desktop\desafio_dev\Codigo_Projeto_Visual_Studio\desafio_dev\bin\Release\net10.0\win-x64\publish\appsettings.json
+C:\Users\andreza\Desktop\desafio_dev\Codigo_Projeto_Visual_Studio\desafio_dev\bin\Release\net10.0\win-x64\publish\estoque.json
+C:\Users\andreza\Desktop\desafio_dev\Codigo_Projeto_Visual_Studio\desafio_dev\bin\Release\net10.0\win-x64\publish\vendas.json
+C:\Users\andreza\Desktop\desafio_dev\Codigo_Projeto_Visual_Studio\desafio_dev\bin\Release\net10.0\win-x64\publish\desafio_dev.pdb
+C:\Users\andreza\Desktop\desafio_dev\Codigo_Projeto_Visual_Studio\desafio_dev\bin\Release\net10.0\win-x64\publish\aspnetcorev2_inprocess.dll
+C:\Users\andreza\Desktop\desafio_dev\Codigo_Projeto_Visual_Studio\desafio_dev\bin\Release\net10.0\win-x64\publish\desafio_dev.exe

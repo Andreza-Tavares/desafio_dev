@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Controle - Desafio</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+        }
+
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; 
+            padding: 30px 20px; 
+            background-color: var(--bg-color); 
+            color: var(--text-color); 
+        }
+
+        .container { 
+            max-width: 900px; 
+            margin: auto; 
+            background: var(--card-bg); 
+            padding: 35px; 
+            border-radius: 16px; 
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); 
+            border: 1px solid var(--border-color);
+        }
+
+        .header-panel {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .header-panel h1 {
+            color: var(--primary);
+            margin: 0;
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .badge-desafio {
+            background: #e2e8f0;
+            color: #334155;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        h2 { 
+            color: #334155; 
+            font-size: 18px; 
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section { 
+            margin-bottom: 30px; 
+            padding: 24px; 
+            border: 1px solid var(--border-color); 
+            border-radius: 12px; 
+            background: #ffffff; 
+            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.05);
+        }
+
+        label { 
+            display: block; 
+            margin-top: 14px; 
+            font-weight: 600; 
+            font-size: 14px;
+            color: #334155;
+        }
+
+        .input-hint {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-top: 4px;
+            margin-bottom: 0;
+        }
+
+        input, select, textarea { 
+            width: 100%; 
+            padding: 12px; 
+            margin-top: 6px; 
+            box-sizing: border-box; 
+            border: 1px solid var(--border-color); 
+            border-radius: 8px; 
+            font-size: 14px;
+            background-color: #ffffff;
+            color: var(--text-color);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        textarea {
+            font-family: monospace;
+            background-color: #f8fafc;
+            margin-top: 12px;
+        }
+
+        button { 
+            margin-top: 16px; 
+            background: var(--primary); 
+            color: white; 
+            border: none; 
+            padding: 11px 20px; 
+            cursor: pointer; 
+            border-radius: 8px; 
+            font-weight: 600; 
+            font-size: 14px;
+            transition: background 0.2s, transform 0.1s;
+            margin-right: 8px; 
+        }
+
+        button:hover { 
+            background: var(--primary-hover); 
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .btn-secondary { 
+            background: #64748b; 
+            margin-top: 8px;
+        }
+        .btn-secondary:hover { 
+            background: #475569; 
+        }
+
+        .btn-detalhes {
+            background: #e2e8f0;
+            color: #334155;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-left: 8px;
+            transition: background 0.2s;
+        }
+        .btn-detalhes:hover {
+            background: #cbd5e1;
+            color: #1e293b;
+        }
+
+        .styled-table-container {
+            margin-top: 18px;
+            overflow-x: auto;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .styled-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 14px;
+            background-color: #ffffff;
+        }
+
+        .styled-table th {
+            background-color: #f1f5f9;
+            color: #475569;
+            padding: 14px 16px;
+            font-weight: 600;
+            border-bottom: 2px solid var(--border-color);
+            vertical-align: middle;
+        }
+
+        .styled-table td {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border-color);
+            color: #334155;
+            vertical-align: middle;
+        }
+
+        .styled-table tbody tr:hover {
+            background-color: #f8fafc;
+        }
+
+        .styled-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .msg-status {
+            margin-top: 12px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            display: none;
+        }
+        .msg-status ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        .msg-status li {
+            margin: 4px 0;
+        }
+
+        /* Estilização do Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(2px);
+        }
+
+        .modal-content {
+            background: #ffffff;
+            color: #1e293b;
+            padding: 30px;
+            border-radius: 14px;
+            width: 100%;
+            max-width: 520px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border: 1px solid var(--border-color);
+            animation: fadeIn 0.2s ease-in-out;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
+            margin-bottom: 18px;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            color: var(--primary);
+            font-size: 20px;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 22px;
+            cursor: pointer;
+            color: #64748b;
+            padding: 0;
+            margin: 0;
+        }
+        .close-btn:hover {
+            color: #1e293b;
+        }
+
+        .modal-body p {
+            margin: 12px 0;
+            font-size: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-body span.label-detalhe {
+            color: #475569;
+            font-weight: 600;
+        }
+
+        .modal-body span.valor-detalhe {
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header-panel">
+        <h1>Painel de Controle</h1>
+        <span class="badge-desafio">Módulo de Desafio</span>
+    </div>
+
+    <div class="section">
+        <h2>Cálculo de Comissões</h2>
+        <p style="color: var(--text-muted); margin-top: 0; margin-bottom: 4px;">Carregue do sistema ou edite o JSON livremente antes de calcular:</p>
+        
+        <button class="btn-secondary" onclick="carregarJsonVendas()">Carregar Vendas do Sistema</button>
+        
+        <textarea id="jsonVendas" rows="8" placeholder="O JSON de vendas aparecerá aqui..."></textarea>
+        
+        <button onclick="calcularComissoes()">Calcular Comissões</button>
+        
+        <div id="resultadoComissoes" class="styled-table-container"></div>
+    </div>
+
+    <div class="section">
+        <h2>Gestão de Estoque</h2>
+        <button onclick="listarEstoque()">Listar Produtos do Estoque</button>
+        
+        <div id="resultadoEstoque" class="styled-table-container"></div>
+
+        <label for="codigoProduto">Código do Produto:</label>
+        <input type="number" id="codigoProduto" placeholder="Ex: 101">
+
+        <label for="tipoMovimentacao">Tipo de Movimentação:</label>
+        <select id="tipoMovimentacao">
+            <option value="ENTRADA">ENTRADA</option>
+            <option value="SAIDA">SAIDA</option>
+        </select>
+
+        <label for="quantidadeMov">Quantidade:</label>
+        <input type="number" id="quantidadeMov" placeholder="Ex: 10">
+
+        <button onclick="movimentarEstoque()">Confirmar Movimentação</button>
+        <div id="resultadoMovimentacao" class="msg-status"></div>
+    </div>
+
+    <div class="section">
+        <h2>Cálculo de Juros</h2>
+        
+        <label for="valorOriginal">Valor Original (R$):</label>
+        <input type="number" id="valorOriginal" step="0.01" placeholder="Ex: 1000.00">
+
+        <label for="dataVencimento">Data de Vencimento:</label>
+        <input type="date" id="dataVencimento">
+        <p class="input-hint">Taxa de referência aplicada pelo sistema: 2,5% ao dia de atraso.</p>
+
+        <button onclick="calcularJurosBtn()">Calcular Juros</button>
+        <div id="resultadoJuros" class="styled-table-container"></div>
+        <div id="resultadoJurosErro" class="msg-status"></div>
+    </div>
+</div>
+
+<!-- Modal de Detalhes do Vendedor -->
+<div id="modalDetalhes" class="modal-overlay" onclick="fecharModalFora(event)">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="modalTitulo">Detalhes do Vendedor</h3>
+            <button class="close-btn" onclick="fecharModal()">&times;</button>
+        </div>
+        <div class="modal-body" id="modalCorpo"></div>
+    </div>
+</div>
+
+<script>
+    const baseUrl = 'http://localhost:5055/api/Desafio';
+    let dadosUltimoCalculo = [];
+    let listaVendasOriginal = [];
+
+    async function carregarJsonVendas() {
+        try {
+            const resposta = await fetch(`${baseUrl}/carregar-vendas-json`);
+            if (!resposta.ok) throw new Error('Erro ao buscar o JSON de vendas da API.');
+            const dadosJson = await resposta.json();
+            document.getElementById('jsonVendas').value = JSON.stringify(dadosJson, null, 2);
+        } catch (erro) {
+            alert("Erro ao carregar do sistema: " + erro.message);
+        }
+    }
+
+    async function calcularComissoes() {
+        const textoJson = document.getElementById('jsonVendas').value;
+        const container = document.getElementById('resultadoComissoes');
+        
+        if (!textoJson.trim()) {
+            alert('A caixa de texto está vazia!');
+            return;
+        }
+
+        try {
+            const objetoDados = JSON.parse(textoJson);
+            listaVendasOriginal = objetoDados.vendas || [];
+
+            const resposta = await fetch(`${baseUrl}/calcular-comissoes`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(objetoDados)
+            });
+            
+            dadosUltimoCalculo = await resposta.json();
+
+            let html = `
+                <table class="styled-table">
+                    <thead>
+                        <tr>
+                            <th>Vendedor</th>
+                            <th class="text-center">Vendas</th>
+                            <th class="text-right">Total Vendido</th>
+                            <th class="text-right">Comissão Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            dadosUltimoCalculo.forEach((item, index) => {
+                html += `
+                    <tr>
+                        <td>
+                            <strong>${item.vendedor}</strong>
+                            <button class="btn-detalhes" onclick="abrirDetalhes(${index})" title="Ver histórico detalhado">🔍 Detalhes</button>
+                        </td>
+                        <td class="text-center">${item.totalVendasQuantidade}</td>
+                        <td class="text-right">R$ ${item.totalVendido.toFixed(2)}</td>
+                        <td class="text-right" style="color: #16a34a; font-weight: bold;">R$ ${item.totalComissao.toFixed(2)}</td>
+                    </tr>
+                `;
+            });
+            html += `</tbody></table>`;
+            container.innerHTML = html;
+
+        } catch (erro) {
+            container.innerHTML = `<p style="padding: 15px; color: #dc2626;">Erro ao calcular comissões: ${erro.message}</p>`;
+        }
+    }
+
+    function abrirDetalhes(index) {
+        const item = dadosUltimoCalculo[index];
+        if (!item) return;
+
+        const vendasVendedor = listaVendasOriginal.filter(v => v.vendedor === item.vendedor);
+
+        let qtdAbaixo100 = 0, valAbaixo100 = 0;
+        let qtdEntre100_500 = 0, valEntre100_500 = 0;
+        let qtdAcima500 = 0, valAcima500 = 0;
+
+        vendasVendedor.forEach(v => {
+            if (v.valor < 100) {
+                qtdAbaixo100++;
+                valAbaixo100 += v.valor;
+            } else if (v.valor <= 500) {
+                qtdEntre100_500++;
+                valEntre100_500 += v.valor;
+            } else {
+                qtdAcima500++;
+                valAcima500 += v.valor;
+            }
+        });
+
+        const comissaoAbaixo = valAbaixo100 * 0.0;
+        const comissaoEntre = valEntre100_500 * 0.01;
+        const comissaoAcima = valAcima500 * 0.05;
+
+        document.getElementById('modalTitulo').innerText = `Detalhes: ${item.vendedor}`;
+        
+        const corpo = `
+            <p><span class="label-detalhe">Total Geral de Vendas:</span> <span class="valor-detalhe">${vendasVendedor.length} vendas (R$ ${item.totalVendido.toFixed(2)})</span></p>
+            <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 12px 0;">
+            
+            <p><span class="label-detalhe">Vendas Abaixo de R$ 100 (0%):</span> <span class="valor-detalhe">${qtdAbaixo100} vendas | R$ ${valAbaixo100.toFixed(2)}</span></p>
+            <p style="padding-left: 15px; font-size: 13px; color: #475569; justify-content: flex-start;"><span style="color: #64748b;">Comissão gerada:</span> R$ ${comissaoAbaixo.toFixed(2)}</p>
+            
+            <hr style="border: 0; border-top: 1px dashed var(--border-color); margin: 8px 0;">
+            
+            <p><span class="label-detalhe">Vendas Entre R$ 100 e R$ 500 (1%):</span> <span class="valor-detalhe">${qtdEntre100_500} vendas | R$ ${valEntre100_500.toFixed(2)}</span></p>
+            <p style="padding-left: 15px; font-size: 13px; color: #475569; justify-content: flex-start;"><span style="color: #64748b;">Comissão gerada:</span> R$ ${comissaoEntre.toFixed(2)}</p>
+            
+            <hr style="border: 0; border-top: 1px dashed var(--border-color); margin: 8px 0;">
+            
+            <p><span class="label-detalhe">Vendas A partir de R$ 500 (5%):</span> <span class="valor-detalhe">${qtdAcima500} vendas | R$ ${valAcima500.toFixed(2)}</span></p>
+            <p style="padding-left: 15px; font-size: 13px; color: #475569; justify-content: flex-start;"><span style="color: #64748b;">Comissão gerada:</span> R$ ${comissaoAcima.toFixed(2)}</p>
+            
+            <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 12px 0;">
+            <p style="font-size: 16px;"><span class="label-detalhe" style="font-weight: bold; color: #1e293b;">Comissão Final:</span> <span class="valor-detalhe" style="color: #16a34a; font-size: 16px;">R$ ${item.totalComissao.toFixed(2)}</span></p>
+        `;
+
+        document.getElementById('modalCorpo').innerHTML = corpo;
+        document.getElementById('modalDetalhes').style.display = 'flex';
+    }
+
+    fnFechModal = () => document.getElementById('modalDetalhes').style.display = 'none';
+    function fecharModal() { fnFechModal(); }
+    function fecharModalFora(event) { if (event.target.id === 'modalDetalhes') fnFechModal(); }
+
+    async function listarEstoque() {
+        const container = document.getElementById('resultadoEstoque');
+        try {
+            const resposta = await fetch(`${baseUrl}/listar-estoque`);
+            const dados = await resposta.json();
+            const produtos = dados.estoque || dados;
+
+            let html = `
+                <table class="styled-table">
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Descrição do Produto</th>
+                            <th class="text-right">Estoque Atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            produtos.forEach(p => {
+                html += `
+                    <tr>
+                        <td>${p.codigoProduto}</td>
+                        <td>${p.descricaoProduto}</td>
+                        <td class="text-right"><strong>${p.estoque}</strong></td>
+                    </tr>
+                `;
+            });
+
+            html += `</tbody></table>`;
+            container.innerHTML = html;
+        } catch (erro) {
+            container.innerHTML = `<p style="padding: 15px; color: #dc2626;">Erro ao carregar estoque: ${erro}</p>`;
+        }
+    }
+
+    async function movimentarEstoque() {
+        const cod = document.getElementById('codigoProduto').value;
+        const qtd = document.getElementById('quantidadeMov').value;
+        const container = document.getElementById('resultadoMovimentacao');
+        
+        let erros = [];
+        if (!cod) erros.push("Falta informar o código do produto.");
+        if (!qtd) erros.push("Falta informar a quantidade.");
+
+        if (erros.length > 0) {
+            container.style.backgroundColor = '#fee2e2';
+            container.style.color = '#991b1b';
+            container.style.display = 'block';
+            container.innerHTML = `<strong>Atenção aos campos obrigatórios:</strong><ul>${erros.map(e => `<li>${e}</li>`).join('')}</ul>`;
+            return;
+        }
+
+        const payload = {
+            idMovimentacao: Math.floor(Math.random() * 1000),
+            tipoMovimentacao: document.getElementById('tipoMovimentacao').value,
+            codigoProduto: parseInt(cod),
+            quantidade: parseInt(qtd)
+        };
+
+        try {
+            const resposta = await fetch(`${baseUrl}/movimentar-estoque`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            const res = await resposta.json();
+            
+            container.style.display = 'block';
+            if (resposta.ok) {
+                container.style.backgroundColor = '#dcfce7';
+                container.style.color = '#166534';
+                const tipoMsg = payload.tipoMovimentacao === 'ENTRADA' ? 'Confirmação de entrada' : 'Saída realizada';
+                container.innerText = `${tipoMsg} ${res.descricaoProduto} | Novo Estoque: ${res.estoqueFinal}`;
+                listarEstoque();
+            } else {
+                container.style.backgroundColor = '#fee2e2';
+                container.style.color = '#991b1b';
+                let msgServidor = res.mensagem || 'Falha na movimentação';
+                msgServidor = msgServidor.replace(/['"]+/g, '');
+                container.innerText = `Erro: ${msgServidor}`;
+            }
+        } catch (erro) {
+            container.style.backgroundColor = '#fee2e2';
+            container.style.color = '#991b1b';
+            container.style.display = 'block';
+            container.innerText = "Erro de conexão com a API.";
+        }
+    }
+
+    async function calcularJurosBtn() {
+        const valor = document.getElementById('valorOriginal').value;
+        const data = document.getElementById('dataVencimento').value;
+        const containerRes = document.getElementById('resultadoJuros');
+        const containerErr = document.getElementById('resultadoJurosErro');
+        
+        containerRes.innerHTML = '';
+        containerErr.style.display = 'none';
+
+        let erros = [];
+        if (!valor) erros.push("Está faltando colocar o valor original.");
+        if (!data) erros.push("Está faltando definir a data de vencimento.");
+
+        if (erros.length > 0) {
+            containerErr.style.backgroundColor = '#fee2e2';
+            containerErr.style.color = '#991b1b';
+            containerErr.style.display = 'block';
+            containerErr.innerHTML = `<strong>Corrija os seguintes itens:</strong><ul>${erros.map(e => `<li>${e}</li>`).join('')}</ul>`;
+            return;
+        }
+
+        const [anoVenc, mesVenc, diaVenc] = data.split('-');
+        const dataVencimentoObj = new Date(anoVenc, mesVenc - 1, diaVenc);
+        const hoje = new Date();
+        hoje.setHours(0, 0, 0, 0);
+
+        if (dataVencimentoObj >= hoje) {
+            containerErr.style.backgroundColor = '#e0f2fe';
+            containerErr.style.color = '#0369a1';
+            containerErr.style.display = 'block';
+            containerErr.innerText = 'Ainda não venceu.';
+            return;
+        }
+
+        const payload = {
+            valorOriginal: parseFloat(valor),
+            dataVencimento: data
+        };
+
+        try {
+            const resposta = await fetch(`${baseUrl}/calcular-juros`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            const res = await resposta.json();
+
+            if (!resposta.ok) throw new Error(res.mensagem || 'Erro ao calcular juros.');
+
+            containerRes.innerHTML = `
+                <table class="styled-table">
+                    <tr><th>Valor Original</th><td class="text-right">R$ ${res.valorOriginal.toFixed(2)}</td></tr>
+                    <tr><th>Dias em Atraso</th><td class="text-right">${res.diasEmAtraso}</td></tr>
+                    <tr><th>Valor dos Juros</th><td class="text-right" style="color: #dc2626;">R$ ${res.valorJuros.toFixed(2)}</td></tr>
+                    <tr><th>Valor Total Atualizado</th><td class="text-right" style="font-weight: bold; color: #16a34a;">R$ ${(res.valorTotalAtualizado || res.valorTotal).toFixed(2)}</td></tr>
+                </table>
+            `;
+        } catch (erro) {
+            containerErr.style.backgroundColor = '#fee2e2';
+            containerErr.style.color = '#991b1b';
+            containerErr.style.display = 'block';
+            containerErr.innerText = `Erro ao calcular juros: ${erro.message}`;
+        }
+    }
+</script>
+</body>
+</html>
